@@ -6,13 +6,14 @@ require 'views/config/hrefs.config.php';
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 
+
 $routes = [
     $home => 'controllers/index.php',
     $about => 'controllers/about.php',
     $contact => 'controllers/contact.php', 
     $notesPage => 'controllers/notes.php', 
-    $notePage => 'controllers/note.php', 
-
+    $notePage => 'controllers/note.php',
+    $noteCreate => 'controllers/note-create.php',
 ];
 
 function abort($code = 404){

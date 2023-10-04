@@ -2,6 +2,7 @@
 
 
 $heading = "The Note";
+$CurrentUserId = 1;
 
 $config = require('config.php');
 $db = new Database($config['database']);
@@ -9,18 +10,11 @@ $db = new Database($config['database']);
 
 
 $note = $db->query("SELECT * FROM `notes` where id= :id", [
-    
-    ':id' => $_GET['id']
-    ] )->fetch(); 
+        ':id' => $_GET['id']
+    ])->findOrFail(); 
 
-if (!$note) {
-    abort();
-}
 
-$CurrentUserId = 1;
 
-if($note['user_id'] !== $CurrentUserId){
-    abort (Response::FORBIDDEN);
-}
+authorize($note['user_id'] === $CurrentUserId);
 
 require "views/note.view.php";
