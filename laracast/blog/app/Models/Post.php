@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 
 class Post
@@ -54,8 +56,19 @@ class Post
 
     }
 
-    public static function find($slug) : Post | Collection
+    public static function find($slug) : Post | Collection | null
     {
         return self::all()->firstWhere('slug' , $slug);
+    }
+
+    public static function findOrFail($slug)
+    {
+        $post = self::find($slug);
+
+        if(!$post){
+            throw new ModelNotFoundException();
+        }else{
+            return $post;
+        }
     }
 }

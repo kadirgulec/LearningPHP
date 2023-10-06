@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Post</title>
-    <link rel="stylesheet" href="/../app.css">
-</head>
-<body>
+@extends('layout')
 
-    <article>
-        <h1><?= $post->title; ?></h1>
-        <p><?= $post->body; ?></p>
-    </article>
+@section('content')
 
-    <a href="/">Go Posts</a>
-</body>
-</html>
+<article>
+    <h1> {{$post->title}}</h1>
+    <div> {!!$post->body!!} </div>
+</article>
+
+<a href="/">Go Posts</a>
+
+@endsection
