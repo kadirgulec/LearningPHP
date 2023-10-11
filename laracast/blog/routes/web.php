@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     return view('posts', [
-        'posts' => Post::latest()
+        'posts' => Post::latest()->get()
     ]);
 
 });
