@@ -8,6 +8,7 @@
             <x-post-featured-card :post='$posts[0]' />
 
             <x-posts-grid :$posts/> {{--shorthand of :posts = "$posts"--}}
+            {{$posts->links()}}
         @else
             <p class="text-center">No Posts.</p>
         @endif

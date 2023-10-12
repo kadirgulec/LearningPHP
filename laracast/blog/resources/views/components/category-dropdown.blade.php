@@ -14,11 +14,15 @@
         </button>
     </x-slot>
     @isset($currentCategory)
-        <x-dropdown-item href="/">All</x-dropdown-item>
+        <x-dropdown-item href="/?{{ http_build_query(request()->except('category','page'))}}">All</x-dropdown-item>
     @else
     @endisset
     @foreach ($categories as $category)
-        <x-dropdown-item href="/?category={{ $category->slug }}" :active="isset($currentCategory) && $currentCategory->is($category)">{{ ucwords($category->name) }}
-        </x-dropdown-item>
+        <x-dropdown-item
+
+        href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category','page'))}}"
+            :active="isset($currentCategory) && $currentCategory->is($category)"
+            >{{ ucwords($category->name) }}
+       </x-dropdown-item>
     @endforeach
 </x-dropdown>
