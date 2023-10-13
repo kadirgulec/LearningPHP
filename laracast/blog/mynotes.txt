@@ -2,3 +2,13 @@ useful tools while web development with laravel
 
 1- clockwork
 2- alpine.js
+
+
+7 commonly uses routing class functions are / 7 RESTful actions
+    index
+    show
+    create
+    store
+    edit
+    update
+    destroy
