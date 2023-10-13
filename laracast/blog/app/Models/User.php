@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username'
     ];
 
     /**
@@ -43,6 +44,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function setNameAttribute($name) //$user->name = "something" then this function will run automatically
+    {
+        $this->attributes['name'] = ucwords($name);
+    }
     public function posts()
     {
         return $this->hasMany(Post::class);
