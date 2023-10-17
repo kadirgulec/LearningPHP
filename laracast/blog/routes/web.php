@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -20,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::view('/', 'posts', ['posts' => Post::with('category')->get()]); //long type of this code is under this code
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
@@ -35,31 +36,13 @@ Route::post('/login', [SessionsController::class, 'store'])->middleware('guest')
 
 Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::post('/newsletter', function () {
+Route::post('/newsletter', NewsletterController::class); //calling the invoke method
 
-    request()->validate(['email'=>'required|email']);
-    // require_once('/path/to/MailchimpMarketing/vendor/autoload.php');
+// Admin
+Route::post('/admin/posts', [AdminPostController::class, 'store'])->middleware('admin'); //this middleware aliases are in Kernel.php
+Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin'); //this middleware aliases are in Kernel.php
+Route::get('/admin/posts', [AdminPostController::class, 'index'])->middleware('admin'); //this middleware aliases are in Kernel.php
+Route::get('/admin/posts/{post}/edit', [AdminPostController::class, 'edit'])->middleware('admin'); //this middleware aliases are in Kernel.php
+Route::patch('/admin/posts/{post}', [AdminPostController::class, 'update'])->middleware('admin'); //this middleware aliases are in Kernel.php
+Route::delete('/admin/posts/{post}', [AdminPostController::class, 'destroy'])->middleware('admin'); //this middleware aliases are in Kernel.php
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us11'
-    ]);
-
-    try
-    {
-        $response = $mailchimp->lists->addListMember('b69e8dd745', [
-            "email_address" => request('email'),
-            "status" => "subscribed",]);
-    }catch(\Exception $e){
-        throw \Illuminate\Validation\ValidationException::withMessages([
-            'email' => 'This email could not be added to our newsletter list',
-        ]);
-    }
-
-
-    return redirect('/')->with('success', 'You are now subscribed for our newsletter!');
-});
-
-Route::get('/test', [HomeController::class, 'test']);

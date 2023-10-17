@@ -16,31 +16,8 @@
             <form class="space-y-6" action="/login" method="POST">
                 @csrf
 
-                <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
-                        address
-                        @error('email')
-                            <span class="text-red-500 text-xs text-right float-right mt-1">{{ $message }}</span>
-                        @enderror
-                    </label>
-                    <div class="mt-2">
-                        <input id="email" name="email" type="email" autocomplete="email" required
-                            value="{{ old('email') }}"
-                            class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password
-                        @error('password')
-                            <span class="text-red-500 text-xs text-right float-right mt-1">{{ $message }}</span>
-                        @enderror
-                    </label>
-                    <div class="mt-2">
-                        <input id="password" name="password" type="password" autocomplete="current-password" required
-                            class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                </div>
+                <x-form.input name='email' type='email'/>
+                <x-form.input name='password' type='password'/>
 
                 <div>
                     <button type="submit"
