@@ -51,7 +51,7 @@ class Post extends Model
                 )
         );
 
-
+        
     }
     public function category()
     {
